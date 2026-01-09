@@ -1,0 +1,3 @@
+<!-- HRMS the system aims to digitize and streamline core HR operations such as employe onboarding, profile management, attendance tracking, payroll visibility make frontend of it using html , css , javascript, bootstrap -->
+HRMS the system aims to digitize and streamline core HR operations such as employe onboarding, profile management, attendance tracking, payroll visibility make frontend of it using html , css , javascript, bootstrap 
+Create profile management page for HRMS system
