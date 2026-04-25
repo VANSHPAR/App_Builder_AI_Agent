@@ -1,0 +1,229 @@
+/*
+  styles.css – Responsive styling for Simple Todo App
+  ---------------------------------------------------
+  This stylesheet defines root CSS variables for colors, fonts, and spacing,
+  and provides a complete responsive layout for the todo app. It is imported
+  by `index.html` and referenced by the class names used in `app.js`.
+*/
+
+/* --------------------------------------------------- */
+/* 1. Root variables – colour palette, typography, spacing */
+:root {
+  /* Colours */
+  --color-primary: #4a90e2;   /* main accent colour */
+  --color-primary-dark: #357ab8;
+  --color-bg: #f9f9f9;        /* page background */
+  --color-surface: #ffffff;  /* container background */
+  --color-text: #333333;      /* primary text */
+  --color-muted: #999999;    /* secondary / disabled text */
+  --color-success: #28a745;  /* completed task colour */
+  --color-danger: #dc3545;   /* delete button colour */
+
+  /* Typography */
+  --font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-sm: 0.875rem;   /* 14px */
+
+  /* Spacing */
+  --space-xs: 0.25rem;  /* 4px */
+  --space-sm: 0.5rem;   /* 8px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+}
+
+/* --------------------------------------------------- */
+/* 2. Layout – .todo-app container */
+.todo-app {
+  max-width: 600px;
+  margin: var(--space-xl) auto;
+  padding: var(--space-lg);
+  background: var(--color-surface);
+  border-radius: var(--space-sm);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-family);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+}
+
+.todo-app h1 {
+  margin: 0 0 var(--space-md);
+  font-size: var(--font-size-lg);
+  text-align: center;
+  color: var(--color-primary);
+}
+
+/* --------------------------------------------------- */
+/* 3. Input section and buttons */
+.input-section {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+#new-task-input {
+  flex: 1 1 auto;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--color-muted);
+  border-radius: var(--space-xs);
+  transition: border-color 0.2s;
+}
+
+#new-task-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+#add-task-btn {
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--space-xs);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  transition: background 0.2s;
+}
+
+#add-task-btn:hover,
+#add-task-btn:focus {
+  background: var(--color-primary-dark);
+  outline: none;
+}
+
+/* Filter navigation buttons */
+.filter-btn {
+  background: transparent;
+  border: 1px solid var(--color-muted);
+  color: var(--color-text);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--space-xs);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.filter-btn:hover,
+.filter-btn:focus {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.filter-btn.active {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+/* --------------------------------------------------- */
+/* 4. Task list */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-lg);
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--color-muted);
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-item .left {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  gap: var(--space-sm);
+}
+
+.task-checkbox {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.task-label {
+  flex: 1 1 auto;
+  font-size: var(--font-size-base);
+  word-break: break-word;
+}
+
+.edit-btn,
+.delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-xs);
+  margin-left: var(--space-xs);
+  font-size: var(--font-size-sm);
+  line-height: 1;
+}
+
+.edit-btn {
+  color: var(--color-primary);
+}
+
+.delete-btn {
+  color: var(--color-danger);
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+  opacity: 0.8;
+}
+
+/* --------------------------------------------------- */
+/* 5. Completed task styling */
+.completed .task-label {
+  text-decoration: line-through;
+  color: var(--color-muted);
+}
+
+.completed .task-checkbox {
+  accent-color: var(--color-success);
+}
+
+/* --------------------------------------------------- */
+/* 6. Responsive – mobile */
+@media (max-width: 600px) {
+  .todo-app {
+    margin: var(--space-md) var(--space-sm);
+    padding: var(--space-md);
+  }
+
+  .input-section {
+    flex-direction: column;
+  }
+
+  #add-task-btn {
+    width: 100%;
+  }
+
+  .filter-btn {
+    font-size: var(--font-size-base);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .task-label {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* --------------------------------------------------- */
+/* 7. Utility classes */
+.hidden {
+  display: none !important;
+}
+
+/* End of styles.css */

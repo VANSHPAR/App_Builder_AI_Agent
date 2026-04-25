@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin dashboard for managing courses, sales, users and settings.">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"
+        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body class="dark-mode">
+    <!-- Top Navigation Bar -->
+    <nav class="top-navbar navbar navbar-expand-lg navbar-dark bg-dark" role="navigation" aria-label="Main navigation">
+
+        <div class="container-fluid">
+            
+            <a class="navbar-brand" href="#">
+                <img src="assets/logo.png" alt="Brand Logo" height="30">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item me-3">
+                        <button class="btn btn-link text-light" aria-label="Notifications" tabindex="0">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item dropdown me-3">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true"
+                            tabindex="0">
+                            <img src="assets/avatar.png" alt="User Avatar" class="rounded-circle" width="30"
+                                height="30">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown" role="menu">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button id="darkModeToggle" class="btn btn-outline-light" aria-label="Toggle dark mode"
+                            tabindex="0">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="d-flex">
+        <!-- Sidebar -->
+
+        <nav id="sidebar" class="sidebar d-flex flex-column bg-dark text-white p-3" role="navigation"
+            aria-label="Sidebar navigation">
+
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link text-white d-flex align-items-center" tabindex="0">
+                        <img src="assets/icons/dashboard.svg" alt="" class="me-2" width="20" height="20"
+                            aria-hidden="true">
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link text-white d-flex align-items-center" tabindex="0">
+                        <img src="assets/icons/courses.svg" alt="" class="me-2" width="20" height="20"
+                            aria-hidden="true">
+                        <span>Courses</span>
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link text-white d-flex align-items-center" tabindex="0">
+                        <img src="assets/icons/sales.svg" alt="" class="me-2" width="20" height="20" aria-hidden="true">
+                        <span>Sales</span>
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link text-white d-flex align-items-center" tabindex="0">
+                        <img src="assets/icons/users.svg" alt="" class="me-2" width="20" height="20" aria-hidden="true">
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link text-white d-flex align-items-center" tabindex="0">
+                        <img src="assets/icons/settings.svg" alt="" class="me-2" width="20" height="20"
+                            aria-hidden="true">
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container-fluid p-4">
+            <!-- Dashboard Cards -->
+            <div class="row g-3 mb-4">
+                <div class="col-sm-6 col-lg-3">
+                    <div id="card-courses" class="dashboard-card card text-white bg-primary h-100" tabindex="0">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Courses</h5>
+                            <p class="card-text" id="totalCourses">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div id="card-enrollments" class="dashboard-card card text-white bg-success h-100" tabindex="0">
+                        <div class="card-body">
+                            <h5 class="card-title">Enrollments</h5>
+                            <p class="card-text" id="totalEnrollments">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div id="card-revenue" class="dashboard-card card text-white bg-warning h-100" tabindex="0">
+                        <div class="card-body">
+                            <h5 class="card-title">Revenue</h5>
+                            <p class="card-text" id="totalRevenue">$0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div id="card-stats" class="dashboard-card card text-white bg-danger h-100" tabindex="0">
+                        <div class="card-body">
+                            <h5 class="card-title">Quick Stat</h5>
+                            <p class="card-text" id="quickStat">N/A</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <canvas id="salesTrendChart" class="chart-container" aria-label="Sales trend chart"
+                        role="img"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="enrollmentDistChart" class="chart-container" aria-label="Enrollment distribution chart"
+                        role="img"></canvas>
+                </div>
+            </div>
+
+            <!-- Course List Table -->
+            <div class="row g-3 mb-4">
+                <div class="col-12">
+                    <table id="courseTable" class="table table-striped table-hover data-table" aria-label="Course list">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Course</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Enrolled</th>
+                                <th scope="col">Revenue</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- User Profile Section -->
+            <section id="userProfile" class="profile-section card bg-secondary text-white p-3"
+                aria-label="User profile">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="assets/avatar.png" alt="User Avatar" class="rounded-circle me-3" width="80" height="80">
+                    <div>
+                        <h4 id="userName">John Doe</h4>
+                        <p class="mb-0" id="userRole">Instructor</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p class="mb-0"><strong>Courses Taught:</strong> <span id="coursesTaught">0</span></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="mb-0"><strong>Total Earnings:</strong> <span id="totalEarnings">$0</span></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="mb-0"><strong>Rating:</strong> <span id="userRating">N/A</span></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/chart-config.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <!-- Bootstrap Bundle JS (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

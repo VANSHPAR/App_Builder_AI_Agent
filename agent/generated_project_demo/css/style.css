@@ -1,0 +1,272 @@
+/*
+ * Core Theme Stylesheet for CourseDashboard
+ * --------------------------------------------------
+ * This stylesheet defines the core visual theme used across the
+ * CourseDashboard application. It establishes CSS custom properties
+ * (variables) for colors, provides a dark‑mode body class, styles the
+ * sidebar and top navigation bar, and supplies reusable component
+ * classes for cards, charts, tables and modals. All colors reference
+ * the variables defined under :root so that a theme tweak only needs
+ * to adjust those values.
+ */
+
+/* --------------------------------------------------
+ * 1. CSS Custom Properties (Theme Variables)
+ * -------------------------------------------------- */
+:root {
+  /* Primary palette */
+  --color-bg: #0a0a0a;          /* General background */
+  --color-primary: #6a0dad;    /* Main brand/purple */
+  --color-accent: #9b59b6;     /* Accent / lighter purple */
+  --color-text: #f0f0f0;       /* Primary text */
+  --color-muted: #777777;      /* Muted/secondary text */
+
+  /* Bootstrap overrides – use the same variables where possible */
+  --bs-body-bg: var(--color-bg);
+  --bs-body-color: var(--color-text);
+  --bs-primary: var(--color-primary);
+  --bs-secondary: var(--color-muted);
+}
+
+/* --------------------------------------------------
+ * 2. Dark‑Mode Body Class
+ * -------------------------------------------------- */
+body.dark-mode {
+  background-color: var(--color-bg) !important;
+  color: var(--color-text) !important;
+}
+
+/* Override Bootstrap components that have hard‑coded light defaults */
+body.dark-mode .navbar,
+body.dark-mode .top-navbar {
+  background-color: var(--color-primary) !important;
+  color: var(--color-text) !important;
+}
+
+body.dark-mode .card {
+  background-color: #1a1a1a !important;
+  color: var(--color-text) !important;
+  border: 1px solid var(--color-muted) !important;
+}
+
+/* --------------------------------------------------
+ * 3. Sidebar Styling (#sidebar)
+ * -------------------------------------------------- */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250px;               /* Fixed width – will collapse on small screens */
+  background-color: #111111; /* Slightly darker than body for contrast */
+  padding-top: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+#sidebar .nav-link {
+  color: var(--color-muted);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;               /* Space between icon and label */
+  transition: background-color 0.2s, color 0.2s;
+}
+
+#sidebar .nav-link:hover,
+#sidebar .nav-link.active {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+/* Icon styling – assumes an <i> or <svg> inside the link */
+#sidebar .nav-link i,
+#sidebar .nav-link svg {
+  font-size: 1.2rem;
+  color: inherit;
+}
+
+/* --------------------------------------------------
+ * 4. Top Navbar (.top-navbar)
+ * -------------------------------------------------- */
+.top-navbar {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-navbar .navbar-brand {
+  color: var(--color-text) !important;
+  font-weight: 600;
+}
+
+/* Dropdown – ARIA compliant styling */
+.top-navbar .dropdown-toggle::after {
+  margin-left: 0.5rem;
+}
+
+.top-navbar .dropdown-menu {
+  background-color: #1a1a1a;
+  color: var(--color-text);
+  border: 1px solid var(--color-muted);
+}
+
+.top-navbar .dropdown-item {
+  color: var(--color-text);
+}
+
+.top-navbar .dropdown-item:hover,
+.top-navbar .dropdown-item:focus {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+/* --------------------------------------------------
+ * 5. Reusable Component Classes
+ * -------------------------------------------------- */
+/* 5.1 Dashboard Card */
+.dashboard-card {
+  background-color: #1a1a1a;
+  color: var(--color-text);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-2px);
+}
+
+/* 5.2 Chart Container */
+.chart-container {
+  position: relative;
+  width: 100%;
+  min-height: 300px; /* Ensures enough height for Chart.js */
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* 5.3 Data Table */
+.data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+}
+
+.data-table thead {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+.data-table tbody tr {
+  background-color: #1a1a1a;
+  color: var(--color-text);
+}
+
+.data-table tbody tr:nth-child(even) {
+  background-color: #2a2a2a;
+}
+
+.data-table tbody tr:hover {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.75rem 1rem;
+  border: none;
+  color: #f0f0f0;
+}
+
+/* 5.4 Custom Modal */
+.modal-custom .modal-content {
+  background-color: #1a1a1a;
+  color: var(--color-text);
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-muted);
+}
+
+.modal-custom .modal-header,
+.modal-custom .modal-footer {
+  border-color: var(--color-muted);
+}
+
+.modal-custom .btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* --------------------------------------------------
+ * 6. Responsive Utilities
+ * -------------------------------------------------- */
+/* Collapse sidebar on small screens */
+@media (max-width: 767.98px) {
+  #sidebar {
+    width: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  #sidebar.show {
+    transform: translateX(0);
+    width: 250px; /* Re‑open when toggled */
+  }
+
+  /* Adjust main content margin when sidebar is hidden */
+  body.dark-mode .main-content {
+    margin-left: 0 !important;
+  }
+}
+
+/* Grid adjustments for cards – 3‑col on large, 2‑col on medium, 1‑col on small */
+@media (min-width: 992px) {
+  .dashboard-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .dashboard-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .dashboard-card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* --------------------------------------------------
+ * 7. Utility Classes (optional helpers)
+ * -------------------------------------------------- */
+.text-primary {
+  color: var(--color-primary) !important;
+}
+
+.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.text-muted {
+  color: var(--color-muted) !important;
+}

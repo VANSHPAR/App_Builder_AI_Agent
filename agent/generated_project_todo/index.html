@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Todo App</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="todo-app">
+        <h1>Simple Todo App</h1>
+        <section class="input-section">
+            <input id="new-task-input" type="text" placeholder="What needs to be done?" aria-label="New task" />
+            <button id="add-task-btn">Add</button>
+        </section>
+        <nav class="filter-nav" aria-label="Task filters">
+            <ul class="filters">
+                <li><button data-filter="all" class="filter-btn active" aria-pressed="true">All</button></li>
+                <li><button data-filter="active" class="filter-btn" aria-pressed="false">Active</button></li>
+                <li><button data-filter="completed" class="filter-btn" aria-pressed="false">Completed</button></li>
+            </ul>
+        </nav>
+        <ul id="task-list" class="task-list" role="list" aria-label="Task list"></ul>
+        <footer class="app-footer">
+            <button id="clear-completed-btn">Clear Completed</button>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
